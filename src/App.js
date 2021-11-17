@@ -7,6 +7,9 @@ import VideoDetail from './components/VideoDetail';
 export class App extends Component {
   state = { videos: [] , selectedVideo: null};
 
+componentDidMount() {
+  this.onTermSubmit('elzero web school');
+}
   onTermSubmit = async (term) => {
     const response = await Youtube.get("/search", {
       params: {
@@ -14,7 +17,10 @@ export class App extends Component {
       },
     });
     console.log(response);
-    this.setState({ videos: response.data.items });
+    this.setState({
+      videos: response.data.items ,
+      selectedVideo: response.data.items[0]
+    });
   };
   onVideoSelect = (video) => {
     console.log('video from app' , video);
